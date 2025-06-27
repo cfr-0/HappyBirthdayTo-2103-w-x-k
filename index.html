@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <link rel="icon" href="王新凯/label.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>happy_birthday</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto:wght@300;400;700&display=swap');
+        
+        :root {
+            --primary-color: #0077ff;
+            --secondary-color: #ff33cc;
+            --bg-color: #ffffff;
+            --text-color: #1a1a2e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .bg-grid {
+            display: none;
+        }
+        
+        .bg-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vh;
+            height: 80vh;
+            background: radial-gradient(
+                circle,
+                rgba(0, 119, 255, 0.1) 0%,
+                rgba(255, 51, 204, 0.05) 50%,
+                rgba(255, 255, 255, 0) 80%
+            );
+            z-index: -1;
+            border-radius: 50%;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(0, 119, 255, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+        
+        .age-display {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3vw;
+            font-weight: 700;
+            line-height: 1;
+            margin: 2rem 0;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .age-display::before,
+        .age-display::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .age-display::before {
+            left: -60px;
+            transform: translateY(-50%);
+        }
+        
+        .age-display::after {
+            right: -60px;
+            transform: translateY(-50%);
+        }
+        
+        .age-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .digit {
+            position: relative;
+            display: inline-block;
+            color: var(--text-color);
+            text-shadow: 0 0 10px var(--primary-color);
+            animation: pulse 4s infinite;
+        }
+        
+        .digit:first-child {
+            animation-delay: 0s;
+        }
+        
+        .digit:last-child {
+            animation-delay: 0.5s;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                text-shadow: 0 0 10px var(--primary-color);
+            }
+            50% {
+                text-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--primary-color);
+            }
+        }
+        
+        .modules {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .module-card {
+            width: 250px;
+            height: 200px;
+            background: rgba(0, 119, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 119, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--text-color);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 119, 255, 0.2);
+            border-color: var(--primary-color);
+        }
+        
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 119, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .module-card:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .module-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .module-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 0.1rem;
+        }
+        
+        .bottom-text {
+            margin-top: 4rem;
+            text-align: center;
+            font-weight: 300;
+            color: rgba(26, 26, 46, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .age-display {
+                font-size: 3rem;
+            }
+            
+            .modules {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .module-card {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--secondary-color);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--primary-color);
+            clip: rect(24px, 450px, 100px, 0);
+            animation: glitch-anim 7s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim {
+            0% {
+                clip: rect(24px, 450px, 100px, 0);
+            }
+            20% {
+                clip: rect(62px, 450px, 79px, 0);
+            }
+            40% {
+                clip: rect(13px, 450px, 45px, 0);
+            }
+            60% {
+                clip: rect(76px, 450px, 87px, 0);
+            }
+            80% {
+                clip: rect(32px, 450px, 54px, 0);
+            }
+            100% {
+                clip: rect(90px, 450px, 140px, 0);
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="bg-glow"></div>
+        
+        <div class="header">
+        </div>
+        <div class="age-text">
+            <div class="age-display">
+                <span>王新凯</span>
+            </div>
+        </div>
+        <div class="age-text">
+            <div class="age-display">
+                <span>生日快乐</span>
+            </div>
+        </div>
+        <h1 class="title">恭喜你，成年一周年了<p>在这一年里：</h1>
+        <div class="modules">
+            <a href="study.html" class="module-card">
+                <img src="photo/school.jpg" width="100" height="100">
+                <h2 class="module-title">成为了高贵的大学生</h2>
+            </a>
+            
+            <a href="travel.html" class="module-card">
+                <img src="photo/unlock.png" width="100" height="100">
+                <h2 class="module-title">解锁了新地图</h2>
+            </a>
+            <a href="fly.html" class="module-card">
+                <img src="photo/plane.jpg" width="100" height="100">
+                <h2 class="module-title">芜湖，起飞了</h2>
+            </a>
+        </div>
+        
+        <div class="bottom-text">
+            <h1>你说说你，为什么不在去年说点带目标的话，不然我就可以把这个在这播放一下，让你好好感受一下了</h1>
+            <img src="photo/18.jpg" width="150" height="200">
+            <p>放心只是照片</p>
+            <br><br><br>
+            <p class="subtitle">不对，好像搞成了一份年度报告、总结了，算了，就这样吧，毕竟只有这样，素材才好找，不是吗？</p>
+            <h1>这个模块我好像不太会哎，没关系，我会ctrl-c、ctrl-v,东拼西凑一下。</h1>
+        </div>
+        <div class="modules">
+            <a href="happy_birthday.html" class="module-card">
+                <img src="photo/label.png" width="100" height="100">
+                <h2 class="module-title">生日快乐</h2>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('mousemove', handleMovement);
+        document.addEventListener('touchmove', handleMovement);
+
+        function handleMovement(e) {
+            const event = e.touches ? e.touches[0] : e;
+            const x = event.clientX / window.innerWidth;
+            const y = event.clientY / window.innerHeight;
+            document.querySelector('.bg-glow').style.transform = `translate(-50%, -50%) translate(${x * 20}px, ${y * 20}px)`;
+        };
+    </script>
+</body>
+</html>

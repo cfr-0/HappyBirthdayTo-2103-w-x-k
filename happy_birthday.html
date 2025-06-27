@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>生日快乐</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Courgette&display=swap");
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: "Courgette", cursive;
+            margin: 0;
+            padding: 0;
+             background-color: #000; /* Set base background to black */
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* background-color: #ffffff;  Remove this, we have black bg on html,body*/
+             color: #ffffff; /* Set default text color to white or light */    /* Ensures content is visible against the dark background */
+        }
+
+        /* Dynamic Character Background */
+        .matrix {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0; /* Place it behind other content */
+            overflow: hidden;
+        }
+
+        .matrix span {
+            font-family: monospace;
+            font-size: 1rem;
+             color: #00FF00; /* Green text like in the matrix */
+            position: absolute;
+            white-space: nowrap;
+            animation: rain 10s linear infinite; /* Adjust speed as needed */
+        }
+
+        @keyframes rain {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(200vh);
+            }
+        }
+
+
+        /* 响应式气球样式 */
+        .baloon {
+            height: calc(var(--size, 100px) * 1.2);
+            width: var(--size, 100px);
+            border: 2px solid black;
+            border-radius: 50% 50% 50% 50%/45% 45% 55% 55%;
+            background-color: red;
+            position: absolute;
+            margin-bottom: 20px;
+            top: 100%;
+            -webkit-animation: animate 5s ease-in-out infinite;
+            animation: animate 5s ease-in-out infinite;
+            -webkit-animation-delay: var(--animation-delay, 0s);
+            animation-delay: var(--animation-delay, 0s);
+            z-index: 1;
+            opacity: 0.75;
+        }
+
+        .baloon::before, .baloon::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            margin: auto;
+            border-radius: inherit;
+            opacity: 0.25;
+        }
+
+        .baloon::before {
+            border-left: calc(var(--size, 100px) * 0.15) solid #ffffff;
+            left: 4px;
+            height: 100%;
+            width: calc(0.95 * var(--size, 100px));
+        }
+
+        .baloon::after {
+            height: 100%;
+            width: 80%;
+            right: 4px;
+            border-right: calc(var(--size, 100px) * 0.15) solid #000000;
+        }
+
+        .baloon span {
+            display: inline-flex;
+            position: absolute;
+            height: calc(var(--size, 100px) * 0.4);
+            width: calc(var(--size, 100px) * 0.04);
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin: auto;
+            background-image: inherit;
+            z-index: -1;
+            border-radius: 20px;
+            border: 2px solid black;
+        }
+
+        .baloon span::before, .baloon span::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translatex(-50%);
+            border-radius: 4px;
+            background-image: inherit;
+            margin: auto;
+            width: calc(var(--size, 100px) * 0.1);
+            height: calc(var(--size, 100px) * 0.12);
+            border-radius: 500px;
+            border: 2px solid black;
+        }
+
+        .baloon span::after {
+            top: calc(var(--size, 100px) * 0.14);
+            width: calc(var(--size, 100px) * 0.08);
+            height: calc(var(--size, 100px) * 0.02);
+        }
+
+        .wishes {
+            font-size: 4rem;
+            color: #FFFFFF;  /* White color for the wishes text */
+            text-shadow: 2px 2px 4px #000000; /* Optional text shadow for readability */
+        }
+
+        @-webkit-keyframes animate {
+            from {
+                top: 100%
+            }
+            to {
+                top: -55%
+            }
+        }
+
+        @keyframes animate {
+            from {
+                top: 100%
+            }
+            to {
+                top: -55%
+            }
+        }
+
+        .back-button {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 10;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            color: white;
+            background-color: #0077ff;
+            border: none;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0, 119, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #005fcc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 119, 255, 0.3);
+        }
+
+        .back-button i {
+            font-size: 1.2rem;
+        }
+
+        /* 移动端优化 */
+        @media (max-width: 768px) {
+            .back-button {
+                top: 1rem;
+                left: 1rem;
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .wishes {
+                font-size: clamp(2rem, 6vw, 3rem);
+            }
+
+            /* 优化动画性能 */
+            .baloon {
+                animation-duration: 6s; /* 延长动画周期，降低性能消耗 */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="matrix"></div>   <!-- Matrix background goes here -->
+
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> ⬅返回
+    </a>
+
+    <!-- 优化后的气球元素，使用响应式尺寸和延迟 -->
+    <div class="baloon" style="--size:10vw;--animation-delay:-1s;left:80%;background-image:linear-gradient(45deg,#E85D04,#FFBA08);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:1s;left:90%;background-image:linear-gradient(45deg,#ff3da4,#FB5607);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:10vw;--animation-delay:2s;left:60%;background-image:linear-gradient(45deg,#f15156,#3A86FF);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:3s;left:54%;background-image:linear-gradient(45deg,#FFBE0B,#f15156);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:4s;left:63%;background-image:linear-gradient(45deg,#FF006E,#00a1de);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:10vw;--animation-delay:8s;left:60%;background-image:linear-gradient(45deg,#DC2F02,#ff3da4);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:10s;left:82%;background-image:linear-gradient(45deg,#FFBE0B,#FB5607);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:9s;left:80%;background-image:linear-gradient(45deg,#E85D04,#FFBA08);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:9vw;--animation-delay:14s;left:5%;background-image:linear-gradient(45deg,#f15156,#3A86FF);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:14s;left:12%;background-image:linear-gradient(45deg,#DC2F02,#FB5607);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:11s;left:78%;background-image:linear-gradient(45deg,#FFBA08,#3A86FF);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:10vw;--animation-delay:11s;left:71%;background-image:linear-gradient(45deg,#8338EC,#00a1de);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:10vw;--animation-delay:16s;left:25%;background-image:linear-gradient(45deg,#FF006E,#f15156);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:13s;left:72%;background-image:linear-gradient(45deg,#ff3da4,#DC2F02);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:10vw;--animation-delay:22s;left:5%;background-image:linear-gradient(45deg,#E85D04,#FFBA08);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:27s;left:72%;background-image:linear-gradient(45deg,#00a1de,#FB5607);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:19s;left:84%;background-image:linear-gradient(45deg,#d177ff,#00a1de);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:10vw;--animation-delay:22s;left:93%;background-image:linear-gradient(45deg,#DC2F02,#FB5607);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:9vw;--animation-delay:30s;left:29%;background-image:linear-gradient(45deg,#d177ff,#FF006E);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:9vw;--animation-delay:24s;left:27%;background-image:linear-gradient(45deg,#DC2F02,#FB5607);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:22s;left:59%;background-image:linear-gradient(45deg,#3A86FF,#FF006E);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:10vw;--animation-delay:29s;left:5%;background-image:linear-gradient(45deg,#FF006E,#3A86FF);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:26s;left:74%;background-image:linear-gradient(45deg,#00a1de,#FFBE0B);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:43s;left:11%;background-image:linear-gradient(45deg,#ff3da4,#FFBA08);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:10vw;--animation-delay:35s;left:23%;background-image:linear-gradient(45deg,#DC2F02,#d177ff);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:44s;left:61%;background-image:linear-gradient(45deg,#f15156,#FB5607);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:9vw;--animation-delay:36s;left:5%;background-image:linear-gradient(45deg,#FF006E,#3A86FF);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:9vw;--animation-delay:48s;left:39%;background-image:linear-gradient(45deg,#3A86FF,#FFBA08);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:9vw;--animation-delay:50s;left:91%;background-image:linear-gradient(45deg,#8338EC,#ff3da4);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:39s;left:90%;background-image:linear-gradient(45deg,#f15156,#3A86FF);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:10vw;--animation-delay:56s;left:44%;background-image:linear-gradient(45deg,#8338EC,#00a1de);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:10vw;--animation-delay:47s;left:85%;background-image:linear-gradient(45deg,#f15156,#FFBA08);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:51s;left:47%;background-image:linear-gradient(45deg,#FFBE0B,#00a1de);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:60s;left:17%;background-image:linear-gradient(45deg,#FF006E,#ff3da4);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:10vw;--animation-delay:62s;left:36%;background-image:linear-gradient(45deg,#FFBE0B,#8338EC);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:10vw;--animation-delay:53s;left:12%;background-image:linear-gradient(45deg,#FFBE0B,#ff3da4);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:62s;left:59%;background-image:linear-gradient(45deg,#E85D04,#FFBE0B);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:9vw;--animation-delay:51s;left:49%;background-image:linear-gradient(45deg,#FB5607,#FF006E);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:63s;left:65%;background-image:linear-gradient(45deg,#3A86FF,#f15156);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:10vw;--animation-delay:39s;left:5%;background-image:linear-gradient(45deg,#FF006E,#FF006E);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:9vw;--animation-delay:73s;left:97%;background-image:linear-gradient(45deg,#00a1de,#FFBA08);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:9vw;--animation-delay:43s;left:30%;background-image:linear-gradient(45deg,#FB5607,#FF006E);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:10vw;--animation-delay:74s;left:55%;background-image:linear-gradient(45deg,#FF006E,#d177ff);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:10vw;--animation-delay:69s;left:92%;background-image:linear-gradient(45deg,#FB5607,#DC2F02);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:9vw;--animation-delay:58s;left:67%;background-image:linear-gradient(45deg,#f15156,#00a1de);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:10vw;--animation-delay:72s;left:44%;background-image:linear-gradient(45deg,#f15156,#DC2F02);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:10vw;--animation-delay:69s;left:22%;background-image:linear-gradient(45deg,#d177ff,#DC2F02);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:91s;left:5%;background-image:linear-gradient(45deg,#3A86FF,#FFBE0B);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:94s;left:32%;background-image:linear-gradient(45deg,#d177ff,#3A86FF);">
+        <span></span>
+    </div>
+    <div class="baloon" style="--size:8vw;--animation-delay:95s;left:85%;background-image:linear-gradient(45deg,#3A86FF,#E85D04);">
+        <span></span>
+    </div>
+
+    <div class="wishes">Happy birthday to<br>19-year-old<br>Wang Xinkai</div>
+
+    <script>
+        // JavaScript to create the dynamic character background
+        const matrixContainer = document.querySelector('.matrix');
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()_+=-`~[]\{}|;\':",./<>?';
+        const numberOfChars = 500; // Tune this based on density
+
+        for (let i = 0; i < numberOfChars; i++) {
+            const span = document.createElement('span');
+            span.textContent = characters[Math.floor(Math.random() * characters.length)];
+            span.style.left = `${Math.random() * 100}vw`;
+            span.style.animationDelay = `${Math.random() * 10}s`; // Vary the start time
+            matrixContainer.appendChild(span);
+        }
+    </script>
+
+</body>
+</html>

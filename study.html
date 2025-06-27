@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <link rel="icon" href="王新凯/label.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>study</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <style>
+         #carouselExampleIndicators .carousel-item {
+            height: 800px;
+            background-size: cover;
+            background-position: center 0;
+        }
+        #carouselExampleIndicators .carousel-item:nth-child(1) {
+            background-image: url(photo/学校1.jpg);
+        }
+        #carouselExampleIndicators .carousel-item:nth-child(2) {
+            background-image: url(photo/学校2.jpg);
+        }
+        #carouselExampleIndicators .carousel-item:nth-child(3) {
+            background-image: url(photo/学校3.jpg);
+        }
+        #carouselExampleIndicators .carousel-item:nth-child(4) {
+            background-image: url(photo/学校4.jpg);
+        }
+        #carouselExampleIndicators2 .carousel-item {
+            background-color: black;
+            height: 1000px;
+        }
+        .back-button {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 10;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            color: white;
+            background-color: #0077ff;
+            border: none;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0, 119, 255, 0.2);
+        }
+        .back-button:hover {
+            background-color: #005fcc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 119, 255, 0.3);
+        }
+        .back-button i {
+            font-size: 1.2rem;
+        }
+        .text1 {
+            text-align: center;
+            font-weight: 300;
+            color: rgba(26, 26, 46, 0.7);
+            font-size: 0.9rem;
+        }
+        .text2 {
+            margin-top: 4rem;
+            text-align: left;
+            font-weight: 300;
+            color: black;
+            font-size: 0.9rem;
+        }
+        .text3 {
+            margin-top: 4rem;
+            text-align: center;
+            font-weight: 300;
+            color: rgba(26, 26, 46, 0.7);
+            font-size: 0.9rem;
+        }
+        p1 {
+            font-size: 30px;
+            font-weight: 700;
+            font-style: normal;
+            line-height: 1;
+            font-family: 楷体;
+        }
+        p2 {
+            font-size: 30px;
+            font-weight: 700;
+            font-style: normal;
+            line-height: 1;
+            font-family: 楷体;
+        }
+    </style>
+</head>
+<body>
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-arrow-left"></i> ⬅返回
+                </a>
+            </div>
+            <div class="carousel-item">
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-arrow-left"></i> ⬅返回
+                </a>
+            </div>
+            <div class="carousel-item">
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-arrow-left"></i> ⬅返回
+                </a>
+            </div>
+            <div class="carousel-item">
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-arrow-left"></i> ⬅返回
+                </a>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    
+    <div class="container mt-5">
+        <div class="text1">
+            <p1>多么棒的学校啊</p1>
+        </div>
+        <div class="text2">
+            <p2>那么学校里的王新凯同学是怎样的呢？他说：</p2>
+            <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="photo/诶.jpg" class="d-block w-100" alt="图片1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="photo/诶1.jpg" class="d-block w-100" alt="图片2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="photo/诶2.jpg" class="d-block w-100" alt="图片3">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="photo/诶3.jpg" class="d-block w-100" alt="图片4">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="photo/困难.png" class="d-block w-100" alt="图片5">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <br><br><br>
+            <p2>过程如何呢？</p2>
+            <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="photo/学习1.jpg" class="d-block w-100" alt="图片1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="photo/学习2.jpg" class="d-block w-100" alt="图片2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="photo/学习实验1.jpg" class="d-block w-100" alt="图片3">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="photo/学习实验2.jpg" class="d-block w-100" alt="图片4">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <br><br><br>
+            <p2>结果又是如何？他说：</p2>
+            <img src="photo/成绩.jpg" class="d-block w-100">
+            <video src="photo/成绩.mp4" class="d-block w-100" loop autoplay muted>不愧是课代表</video>
+        </div>
+        <div class="text1">
+            <p1>多么好的学生啊</p1>
+        </div>
+        <div class="text2">
+            <p2>学校只有学习吗？<br> 还有要命的军训：</p2>
+            <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="photo/军训1.jpg" class="d-block w-100" alt="图片1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="photo/军训2.jpg" class="d-block w-100" alt="图片2">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <br><br><br>
+            <p2>瞧，还有后续：</p2>
+            <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="photo/军训服.jpg" class="d-block w-100" alt="图片1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="photo/金工实习.png" class="d-block w-100" alt="图片2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="photo/金工实习1.jpg" class="d-block w-100" alt="图片3">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="photo/金工实习2.jpg" class="d-block w-100" alt="图片4">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="photo/金工实习3.jpg" class="d-block w-100" alt="图片5">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <video src="photo/金工实习.mp4" class="d-block w-100" loop autoplay muted></video>
+            <br><br><br>
+            <p2>还有美好的校园生活</p2>
+            <img src="photo/校园生活.png" class="d-block w-100">
+        </div>
+        <div class="text1">
+            <p1>多么丰富的生活啊</p1>
+        </div>
+        <p3>校园生活如此美好，愿你过好每一天。</p3>
+    </div>
+    
+    <script src="bootstrap.bundle.min.js"></script>
+</body>
+</html>

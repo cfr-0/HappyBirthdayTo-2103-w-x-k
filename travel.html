@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <link rel="icon" href="王新凯/label.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlocking Map Region</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> <!-- 添加缺失的slick JS -->
+    <style>
+        body { font-family: "Microsoft YaHei", sans-serif; margin: 0; padding: 20px; }
+        .timeline-container { max-width: 1200px; margin: 0 auto; }
+        .timeline-title { text-align: center; margin-bottom: 60px; }
+        .event-timeline { position: relative; }
+        .event-timeline::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background-color: #e0e0e0;
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            position: relative;
+            margin: 40px 0;
+            padding: 20px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        .timeline-item.slick-current { opacity: 1; }
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: #3498db;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+        .timeline-content {
+            width: 45%;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .timeline-item:nth-child(even) .timeline-content { margin-left: auto; }
+        .event-date {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        .event-title {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .event-description {
+            color: #666;
+            line-height: 1.6;
+        }
+        .thumbnails-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 15px;
+            margin-left: -8px;
+            margin-right: -8px; 
+        }
+        
+        .thumbnail {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            border: 2px solid transparent;
+            margin: 8px; 
+        }
+        
+        .thumbnail:hover {
+            transform: scale(1.05);
+            border-color: #3498db;
+        }
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 6px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+        }
+        
+        .modal-navigation {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            padding: 10px;
+        }
+        
+        .modal-prev {
+            left: 20px;
+        }
+        
+        .modal-next {
+            right: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .event-timeline::before { left: 20px; }
+            .timeline-dot { left: 20px; }
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 40px !important;
+            }
+            
+            .thumbnail {
+                width: 80px;
+                height: 80px;
+            }
+        }
+        
+        .slick-dots { bottom: -40px; }
+        .slick-dots li button:before { font-size: 12px; }
+        .slick-dots li.slick-active button:before { color: #3498db; }
+        .back-button {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 10;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            color: white;
+            background-color: #0077ff;
+            border: none;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 119, 255, 0.2);
+        }
+        .back-button:hover {
+            background-color: #005fcc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 119, 255, 0.3);
+        }
+        .back-button i {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> ⬅返回
+    </a>
+    <div class="timeline-container">
+        <h1 class="timeline-title">解锁新地图</h1>
+        
+        <div class="event-timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="event-date">2024年10月</div>
+                    <div class="event-title">新区域：苏州</div>
+                    <div class="thumbnails-container">
+                        <img src="photo/苏州1.png" alt="2024,10,1" class="thumbnail" data-index="0">
+                        <img src="photo/苏州2.png" alt="2024,10,2" class="thumbnail" data-index="1">
+                        <img src="photo/苏州3.png" alt="2024,10,3" class="thumbnail" data-index="2">
+                    </div>
+                    <div class="event-description">首通时间：2024年10月1日；同行者：田宇飞</div>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="event-date">2024年10月</div>
+                    <div class="event-title">新区域：上海</div>
+                    <img src="photo/上海.png" alt="2024，10，4" class="thumbnail">
+                    <div class="event-description">首通时间：2024年10月4日；同行者：田宇飞<br>一日速通</div>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="event-date">2025年4月</div>
+                    <div class="event-title">新区域：扬州</div>
+                    <div class="thumbnails-container">
+                        <img src="photo/扬州0.png" alt="2025,4,4" class="thumbnail" data-index="0">
+                        <img src="photo/扬州1.png" alt="2025,4,5" class="thumbnail" data-index="1">
+                        <img src="photo/扬州2.png" alt="2025,4,6" class="thumbnail" data-index="2">
+                        <img src="photo/扬州3.png" alt="2025,4,7" class="thumbnail" data-index="3">
+                    </div>
+                    <div class="event-description">首通时间：2025年4月4日；同行者：王宇轩、田佳杰、王棋敏、刘子皓、王佳、李双双</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="event-date">2025年4月</div>
+                    <div class="event-title">新区域：杭州</div>
+                    <div class="thumbnails-container">
+                        <img src="photo/杭州1.png" alt="2025,5,1" class="thumbnail" data-index="0">
+                        <img src="photo/杭州2.png" alt="2025,5,2" class="thumbnail" data-index="1">
+                        <img src="photo/杭州3.png" alt="2025,5,3" class="thumbnail" data-index="2">
+                        <img src="photo/杭州4.png" alt="2025,5,4" class="thumbnail" data-index="3">
+                    </div>
+                    <div class="event-description">首通时间：2025年5月1日；同行者：田宇飞</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 大图模态框 -->
+    <div class="image-modal" id="imageModal">
+        <span class="modal-close" id="modalClose">&times;</span>
+        <span class="modal-navigation modal-prev" id="modalPrev">&lt;</span>
+        <span class="modal-navigation modal-next" id="modalNext">&gt;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            try {
+                // 初始化大事记时间轴轮播
+                $('.event-timeline').slick({
+                    dots: true,
+                    infinite: true,
+                    speed: 500,
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    arrows: true,
+                    adaptiveHeight: true,
+                    autoplay: true,
+                    autoplaySpeed: 3000,
+                    pauseOnHover: true,
+                    prevArrow: '<button type="button" class="slick-prev">上一个</button>',
+                    nextArrow: '<button type="button" class="slick-next">下一个</button>',
+                    responsive: [
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                arrows: false,
+                                swipe: true
+                            }
+                        }
+                    ]
+                });
+                
+                // 当前事件高亮效果
+                $('.event-timeline').on('afterChange', function(event, slick, currentSlide) {
+                    $('.timeline-item').removeClass('active');
+                    $(slick.$slides.get(currentSlide)).addClass('active');
+                });
+                
+                // 缩略图点击事件
+                const modal = document.getElementById('imageModal');
+                const modalImage = document.getElementById('modalImage');
+                const closeBtn = document.getElementById('modalClose');
+                const prevBtn = document.getElementById('modalPrev');
+                const nextBtn = document.getElementById('modalNext');
+                let currentImageIndex = 0;
+                let currentThumbnails = [];
+                
+                // 打开模态框
+                document.querySelectorAll('.thumbnail').forEach(thumb => {
+                    thumb.addEventListener('click', function() {
+                        try {
+                            const parentContainer = this.closest('.thumbnails-container');
+                            currentThumbnails = Array.from(parentContainer.querySelectorAll('.thumbnail'));
+                            currentImageIndex = parseInt(this.dataset.index);
+                            
+                            modalImage.src = this.src;
+                            modal.style.display = 'flex';
+                            document.body.style.overflow = 'hidden'; // 防止背景滚动
+                        } catch (error) {
+                            console.error('Error opening modal:', error);
+                            alert('打开图片时出错，请重试');
+                        }
+                    });
+                });
+                
+                // 关闭模态框
+                closeBtn.addEventListener('click', function() {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = '';
+                });
+                
+                // 上一张/下一张
+                prevBtn.addEventListener('click', function() {
+                    try {
+                        if (currentThumbnails.length > 0) {
+                            currentImageIndex = (currentImageIndex - 1 + currentThumbnails.length) % currentThumbnails.length;
+                            modalImage.src = currentThumbnails[currentImageIndex].src;
+                        }
+                    } catch (error) {
+                        console.error('Error navigating to previous image:', error);
+                    }
+                });
+                
+                nextBtn.addEventListener('click', function() {
+                    try {
+                        if (currentThumbnails.length > 0) {
+                            currentImageIndex = (currentImageIndex + 1) % currentThumbnails.length;
+                            modalImage.src = currentThumbnails[currentImageIndex].src;
+                        }
+                    } catch (error) {
+                        console.error('Error navigating to next image:', error);
+                    }
+                });
+                
+                // 点击背景关闭
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = '';
+                    }
+                });
+                
+                // 键盘导航
+                document.addEventListener('keydown', function(e) {
+                    if (modal.style.display === 'flex') {
+                        if (e.key === 'Escape') closeBtn.click();
+                        if (e.key === 'ArrowLeft') prevBtn.click();
+                        if (e.key === 'ArrowRight') nextBtn.click();
+                    }
+                });
+                
+                console.log('Timeline initialized successfully');
+            } catch (error) {
+                console.error('Error initializing timeline:', error);
+                alert('时间轴初始化失败，请刷新页面重试');
+            }
+        });
+    </script>
+</body>
+</html>
